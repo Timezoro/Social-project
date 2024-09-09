@@ -7,7 +7,7 @@
 }
 
 body {
-  background-image: url('/bg.jpg');
+  background-color: black;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -21,7 +21,7 @@ body {
 
 .container{
   width: 90vw;
-  height: 35vw;
+  height: 50vw;
   background: rgba(17, 25, 40, 0.75); 
   backdrop-filter: blur(19px) sataurate(180%);
   border-radius: 12px; 
