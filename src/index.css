@@ -1,9 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 body {
@@ -26,4 +27,5 @@ body {
   backdrop-filter: blur(19px) sataurate(180%);
   border-radius: 12px; 
   border: 1px solid rgba(255, 255, 255, 0.125);
+  display: flex;
 }
