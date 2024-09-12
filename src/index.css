@@ -1,3 +1,34 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  margin: 0;
+  color: white;
+}
+
+.container{
+  width: 90vw;
+  height: 50vw;
+  background: rgba(17, 25, 40, 0.75); 
+  backdrop-filter: blur(19px) sataurate(180%);
+  border-radius: 12px; 
+  border: 1px solid rgba(255, 255, 255, 0.125);
+  display: flex;
+}
