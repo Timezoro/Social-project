@@ -4,61 +4,94 @@ import "./chatlist.css";
 const Chatlist = () => {
     const [addMode, setAddMode] = useState(false);
   return (
-    <div>
+    <div className="chatlist-container">
 
-        <div className="search">
-            <div className="searchbar">
-                <img src="./search.png" className="img" alt="search" />
-                <input type="text" className="input" placeholder="Search" />
+        <div className="chatlist-search">
+            <div className="chatlist-searchbar">
+                <img src="./search.png" className="chatlist-img" alt="search" />
+                <input type="text" className="chatlist-input" placeholder="Search" />
             </div>
             <img src={addMode ? "./minus.png" : "./plus.png"}
-            className="add" 
+            className="chatlist-add" 
             onClick={() => setAddMode(prev => !prev)} 
             alt="toggle" />
         </div>
 
-        <div className="item">
+        {/* Testing for the mssage */}
+        <div className="chatlist-item">
             <img src="./avatar.png" alt="" />
-            <div className="text">
+            <div className="chatlist-text">
                 <span>Bill Skarsgård</span>
                 <p>Hello</p>
             </div>
         </div>
 
-        <div className="item">
+        <div className="chatlist-item">
             <img src="./avatar.png" alt="" />
-            <div className="text">
+            <div className="chatlist-text">
                 <span>Bill Skarsgård</span>
                 <p>Hello</p>
             </div>
         </div>
 
-        <div className="item">
+        <div className="chatlist-item">
             <img src="./avatar.png" alt="" />
-            <div className="text">
+            <div className="chatlist-text">
                 <span>Bill Skarsgård</span>
                 <p>Hello</p>
             </div>
         </div>
 
-        <div className="item">
+        <div className="chatlist-item">
             <img src="./avatar.png" alt="" />
-            <div className="text">
+            <div className="chatlist-text">
                 <span>Bill Skarsgård</span>
                 <p>Hello</p>
             </div>
         </div>
 
-        <div className="item">
+        <div className="chatlist-item">
             <img src="./avatar.png" alt="" />
-            <div className="text">
+            <div className="chatlist-text">
                 <span>Bill Skarsgård</span>
                 <p>Hello</p>
             </div>
-        </div>        
+        </div> 
+
+        <div className="chatlist-item">
+            <img src="./avatar.png" alt="" />
+            <div className="chatlist-text">
+                <span>Bill Skarsgård</span>
+                <p>Hello</p>
+            </div>
+        </div>
+
+        <div className="chatlist-item">
+            <img src="./avatar.png" alt="" />
+            <div className="chatlist-text">
+                <span>Bill Skarsgård</span>
+                <p>Hello</p>
+            </div>
+        </div> 
+
+        <div className="chatlist-item">
+            <img src="./avatar.png" alt="" />
+            <div className="chatlist-text">
+                <span>Bill Skarsgård</span>
+                <p>Hello</p>
+            </div>
+        </div>
+
+        <div className="chatlist-item">
+            <img src="./avatar.png" alt="" />
+            <div className="chatlist-text">
+                <span>Bill Skarsgård</span>
+                <p>Hello</p>
+            </div>
+        </div> 
 
     </div>
   )
 }
 
-export default Chatlist
+export default Chatlist;
