@@ -15,6 +15,7 @@ const Chat = () => {
   return (
     <div className="chat-container">
 
+      {/* top component */}
       <div className="chat-top">
         <div className="chat-user">
           <img src="./avatar.png" alt="avatar" />
@@ -32,8 +33,66 @@ const Chat = () => {
         </div>
       </div>
 
-      <div className="chat-center"></div>
+      {/* center component */}
+      <div className="chatcenter">
 
+        {/* other user message */}
+        <div className="message">
+          <img src="./avatar.png" alt="" />
+          <div className="chatcenter-text">
+            <p>
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
+              Aliquid eligendi libero velit quod, nam quisquam fugiat 
+              veritatis illum corrupti quae, aperiam aut distinctio 
+              eos ad soluta ratione eveniet sequi ducimus.
+            </p>
+            <span>1 min ago</span>
+          </div>
+        </div>
+        
+        {/* ur message */}
+        <div className="message-own">
+          <div className="chatcenter-text">
+            <p>
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
+              Aliquid eligendi libero velit quod, nam quisquam fugiat 
+              veritatis illum corrupti quae, aperiam aut distinctio 
+              eos ad soluta ratione eveniet sequi ducimus.
+            </p>
+            <span>1 min ago</span>
+          </div>
+        </div>
+
+        {/* other user message */}
+        <div className="message">
+          <img src="./avatar.png" alt="" />
+          <div className="chatcenter-text">
+            <p>
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
+              Aliquid eligendi libero velit quod, nam quisquam fugiat 
+              veritatis illum corrupti quae, aperiam aut distinctio 
+              eos ad soluta ratione eveniet sequi ducimus.
+            </p>
+            <span>1 min ago</span>
+          </div>
+        </div>
+
+        {/* ur message */}
+        <div className="message-own">
+          <div className="chatcenter-text">
+            <p>
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
+              Aliquid eligendi libero velit quod, nam quisquam fugiat 
+              veritatis illum corrupti quae, aperiam aut distinctio 
+              eos ad soluta ratione eveniet sequi ducimus.
+            </p>
+            <span>1 min ago</span>
+          </div>
+        </div>
+
+      </div>
+
+      {/* bottom component */}
       <div className="chatbottom">
 
         <div className="chatbottom-icon">
