@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -9,6 +7,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
+  font-size: 15px;
 }
 
 body {
@@ -24,7 +23,7 @@ body {
   color: white;
 }
 
-.container {
+.container{
   width: 90vw;
   height: 50vw;
   background: rgba(17, 25, 40, 0.75); 
