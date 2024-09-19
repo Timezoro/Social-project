@@ -7,11 +7,6 @@
     width: 5px; 
 }
 
-.chatlist-container::-webkit-scrollbar-thumb {
-    background: rgba(123, 137, 163, 0.5); 
-    border-radius: 10px; 
-}
-
 .chatlist-search {
     display: flex;
     align-items: center;

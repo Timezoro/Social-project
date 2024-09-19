@@ -1,3 +1,100 @@
-.detail{
+ .detail{
     flex: 1px;
+}
+
+.detail-user{
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    border-bottom: 1px solid #dddddd35;
+}
+
+.detail-user img{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.detail-info{
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.opt-title{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.opt-title img{
+    width: 30px;
+    height: 30px;
+    background-color: rgba(123, 137, 163, 0.1);
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.detailopt-photo{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.detailopt-photoItem{
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+}
+
+.photo-detail{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+}
+
+.photo-detail img{
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+.photo-detail span{
+    font-size: 11px;
+    color: lightgray;
+    font-weight: 300;
+}
+
+.phtdet-icon{
+    width: 30px;
+    height: 30px;
+    background-color: rgba(123, 137, 163, 0.1);
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.detail-info button{
+    padding: 15px;
+    background-color: rgba(230, 74, 105, 0.553);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.detail-info button:hover{
+    background-color: rgba(220, 20, 60, 0.796);
+}
+
+.detail-info .logout{
+    padding: 10px;
+    background-color: #1a73e8;
 }
