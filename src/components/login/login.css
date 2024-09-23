@@ -60,6 +60,11 @@
     font-weight: 500;
 }
 
+.login-items button:disabled{
+    cursor: not-allowed;
+    background-color: #1f8ff156;
+}
+
 .login-separator{
     height: 80%;
     width: 2px;
