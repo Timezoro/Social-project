@@ -22,6 +22,9 @@
     border-radius: 10px;
     border: none;
     outline: none;
+    color: black;
+    background-color: #fff;
+    font-size: 16px;
 }
 
 .addUser form button{

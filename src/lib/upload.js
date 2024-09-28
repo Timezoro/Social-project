@@ -2,9 +2,10 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { storage } from "./firebase";
 
 const upload = async (file) => {
-    const date = new Date();
+    const date = new Date().getTime();  // Use current timestamp for uniqueness
 
-    const storageRef = ref(storage, 'images/${date + file.name}');
+    // Use backticks for template literals
+    const storageRef = ref(storage, `images/${date}_${file.name}`);
 
     const uploadTask = uploadBytesResumable(storageRef, file);
 
@@ -15,7 +16,7 @@ const upload = async (file) => {
                 console.log('Upload is ' + progress + '% done');
             }, 
             (error) => {
-                reject("Something went wrong!" + error.code);
+                reject("Something went wrong! " + error.code);
             }, 
             () => {
                 getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
@@ -26,4 +27,4 @@ const upload = async (file) => {
     });    
 };
 
-export default upload
+export default upload;
