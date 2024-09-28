@@ -1,35 +1,46 @@
 import { useEffect, useRef, useState } from "react";
 import "./chat.css";
 import EmojiPicker from "emoji-picker-react";
+import { doc, onSnapshot } from "firebase/firestore";
+import { db } from "../../../lib/firebase";
 
 const Chat = () => {
-
-  const[open, setOpen] = useState(false);
-  const[text, setText] = useState("");
+  const [chat, setChat] = useState(); // Initialize chat state
+  const [open, setOpen] = useState(false);
+  const [text, setText] = useState("");
 
   const endRef = useRef(null);
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [chat]); // Scroll when chat updates
+
+  useEffect(() => {
+    const unSub = onSnapshot(doc(db, "chats", "4Xe0QDtGtbXKombaa5qv"), (res) => {
+      setChat(res.data()); // Correctly set chat data
+    });
+
+    return () => {
+      unSub(); // Clean up on unmount
+    };
   }, []);
 
-  const handleEmoji = e => {
-    setText(prev=>prev+e.emoji);
-    setOpen(false)
-  }
+  console.log(chat);
+
+  const handleEmoji = (e) => {
+    setText((prev) => prev + e.emoji);
+    setOpen(false);
+  };
 
   return (
     <div className="chat-container">
-
-      {/* top component */}
+      {/* Top Component */}
       <div className="chat-top">
         <div className="chat-user">
           <img src="./avatar.png" alt="avatar" />
           <div className="chat-text">
             <span>Mads Mikkelsen</span>
-            <p>
-            Lorem Ipsum is simply dummy text of Ipsum.
-            </p>
+            <p>Lorem Ipsum is simply dummy text of Ipsum.</p>
           </div>
         </div>
         <div className="chattop-icon">
@@ -39,81 +50,34 @@ const Chat = () => {
         </div>
       </div>
 
-      {/* center component */}
+      {/* Center Component */}
       <div className="chatcenter">
-
-        {/* other user message */}
-        <div className="message">
-          <img src="./avatar.png" alt="" />
-          <div className="chatcenter-text">
-            <p>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
-              Aliquid eligendi libero velit quod, nam quisquam fugiat 
-              veritatis illum corrupti quae, aperiam aut distinctio 
-              eos ad soluta ratione eveniet sequi ducimus.
-            </p>
-            <span>1 min ago</span>
+        {/* Render chat messages dynamically based on chat state */}
+        {chat?.messages?.map((message, index) => (
+          <div className={`message ${message.isOwn ? 'message-own' : ''}`} key={index}>
+            {!message.isOwn && <img src="./avatar.png" alt="user avatar" />}
+            <div className="chatcenter-text">
+              <p>{message.text}</p>
+              <span>{message.timestamp}</span> {/* Adjust according to your data structure */}
+            </div>
           </div>
-        </div>
-        
-        {/* ur message */}
-        <div className="message-own">
-          <div className="chatcenter-text">
-            <p>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
-              Aliquid eligendi libero velit quod, nam quisquam fugiat 
-              veritatis illum corrupti quae, aperiam aut distinctio 
-              eos ad soluta ratione eveniet sequi ducimus.
-            </p>
-            <span>1 min ago</span>
-          </div>
-        </div>
-
-        {/* other user message */}
-        <div className="message">
-          <img src="./avatar.png" alt="" />
-          <div className="chatcenter-text">
-            <p>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
-              Aliquid eligendi libero velit quod, nam quisquam fugiat 
-              veritatis illum corrupti quae, aperiam aut distinctio 
-              eos ad soluta ratione eveniet sequi ducimus.
-            </p>
-            <span>1 min ago</span>
-          </div>
-        </div>
-
-        {/* ur message */}
-        <div className="message-own">
-          <div className="chatcenter-text">
-            <img src="https://fastly.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU" alt="" />
-            <p>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
-              Aliquid eligendi libero velit quod, nam quisquam fugiat 
-              veritatis illum corrupti quae, aperiam aut distinctio 
-              eos ad soluta ratione eveniet sequi ducimus.
-            </p>
-            <span>1 min ago</span>
-          </div>
-        </div>
-
+        ))}
         <div ref={endRef}></div>
-
       </div>
 
-      {/* bottom component */}
+      {/* Bottom Component */}
       <div className="chatbottom">
-
         <div className="chatbottom-icon">
           <img src="./img.png" alt="image icon" />
           <img src="./camera.png" alt="camera icon" />
           <img src="./mic.png" alt="microphone icon" />
         </div>
 
-        <input type="text" 
-        placeholder="Type a message..." 
-        value={text} 
-        onChange={e=>setText(e.target.value)}
+        <input
+          type="text"
+          placeholder="Type a message..."
+          value={text}
+          onChange={(e) => setText(e.target.value)}
         />
 
         <div className="emoji-container">
@@ -124,15 +88,13 @@ const Chat = () => {
           />
           <div className="emoji-picker">
             <EmojiPicker open={open} onEmojiClick={handleEmoji} />
-          </div>  
+          </div>
         </div>
 
         <button className="sendbttn">Send</button>
-
       </div>
-
     </div>
-  )
-}
+  );
+};
 
 export default Chat;

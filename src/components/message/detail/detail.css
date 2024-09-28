@@ -1,5 +1,6 @@
  .detail{
     flex: 1px;
+    overflow: hidden;
 }
 
 .detail-user{
