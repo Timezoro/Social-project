@@ -20,16 +20,17 @@ const Chatlist = () => {
             const items = res.data()?.chats || []; // Use optional chaining and default to an empty array
 
             const promises = items.map(async (item) => {
-                const userDocRef = doc(db, "users", item.recieverId);
+                const userDocRef = doc(db, "users", item.receiverId); // Fixed property name
                 const userDocSnap = await getDoc(userDocRef);
                 const user = userDocSnap.data();
 
-                return { ...item, user };
+                return { ...item, user }; // Attach user data to the chat item
             });
 
             const chatData = await Promise.all(promises);
 
-            setChats(chatData.sort((a, b) => b.updateAt - a.updateAt));
+            // Ensure you're using the correct property for sorting
+            setChats(chatData.sort((a, b) => b.updatedAt - a.updatedAt || 0)); // Add a fallback to avoid NaN
         });
 
         return () => {
@@ -52,7 +53,7 @@ const Chatlist = () => {
 
             {chats.map(chat => (
                 <div className="chatlist-item" key={chat.chatId}>
-                    <img src="./avatar.png" alt="" />
+                    <img src={chat.user.avatar || "./avatar.png"} alt="Avatar" />
                     <div className="chatlist-text">
                         <span>{chat.user?.username || 'Unknown User'}</span>
                         <p>{chat.lastMessage}</p>
