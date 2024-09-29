@@ -92,7 +92,7 @@ const Login = () => {
     return (
         <div className="login">
             <div className="login-items">
-                <h2 style={{ fontSize: "25px" }}>Welcome back!</h2>
+                <h2 style={{ fontSize: " 25px " }}>Welcome back!</h2>
                 <form onSubmit={handleLogin}>
                     <input type="text" placeholder="Email" name="email" />
                     <input type="password" placeholder="Password" name="password" />
