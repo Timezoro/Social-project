@@ -26,7 +26,7 @@ const App = () => {
   if (isLoading) return <div className="loading">Loading...</div>
 
   return (
-    <div className='container'> 
+    <div className=' container '> 
 
       {
         currentUser ? (
