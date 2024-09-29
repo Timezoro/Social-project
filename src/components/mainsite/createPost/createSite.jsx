@@ -1,6 +1,17 @@
-import React from "react";
-
+import {useState, useContext} from "react";
+import { UserContext } from "../../../context/UserContext";
+ 
 export default function createSite() {
+    const {setCaption,setLocation,setTags } = useContext(UserContext);
+    const [userCaption, setuserCaption] = useState(null);
+    const [userLocation, setuserLocation] = useState(null);
+    const [userTags, setuserTags] = useState(null);
+
+    function handleChange() {
+        setCaption(userCaption);
+        setLocation(userLocation);
+        setTags(userTags);
+    }
 
     return (
     <div className ="h-screen w-screen overflow-auto">
@@ -11,32 +22,27 @@ export default function createSite() {
             <div className="flex-col">
                 <form>
                     <div className="flex-col">
-                        <label className="text-lg font-semibold">Title</label>
-                        <input type="text" className="border-2 border-gray-300 p-2 rounded-lg w-full" placeholder="Title"/>
+                        <label className="text-sm font-semibold">Caption</label>
+                        <input onChange={e => setuserCaption(e.target.value)} type="text" className="border-2 border-gray-300 p-2 rounded-lg w-full" placeholder="Caption"/>
                     </div>
                     <div className="flex-col">
-                        <label className="text-lg font-semibold">Description</label>
-                        <textarea className="border-2 border-gray-300 p-2 rounded-lg w-full" placeholder="Description"/>
+                        <label className="text-lg font-semibold">Add photos</label>
+                        
                     </div>
                     <div className="flex-col">
-                        <label className="text-lg font-semibold">Image</label>
-                        <input type="file" className="border-2 border-gray-300 p-2 rounded-lg w-full" placeholder="Image"/>
+                        <label className="text-lg font-semibold">Add Location</label>
+                        <input onChange ={e => setuserLocation(e.target.value)} type="text" className="border-2 border-gray-300 p-2 rounded-lg w-full" placeholder="Location"/>
                     </div>
                     <div className="flex-col">
-                        <label className="text-lg font-semibold">Category</label>
-                        <select className="border-2 border-gray-300 p-2 rounded-lg w-full">
-                            <option value="1">Category 1</option>
-                            <option value="2">Category 2</option>
-                            <option value="3">Category 3</option>
-                            <option value="4">Category 4</option>
-                        </select>
+                        <label className="text-lg font-semibold">Add tags</label>
+                        <input onChange = {e => setuserTags(e.target.value)} type="text" className="border-2 border-gray-300 p-2 rounded-lg w-full" placeholder="Tags"/>
                     </div>
                     <div className="flex-col">
                         <label className="text-lg font-semibold">Tags</label>
                         <input type="text" className="border-2 border-gray-300 p-2 rounded-lg w-full" placeholder="Tags"/>
                     </div>
                     <div className="flex-col">
-                        <button className="bg-blue-500 text-white p-2 rounded-lg w-full">Create Post</button>
+                        <button onclick= {e => handleChange()} className="bg-blue-500 text-white p-2 rounded-lg w-full">Create Post</button>
                     </div>
                 </form>
             </div>
