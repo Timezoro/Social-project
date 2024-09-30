@@ -27,7 +27,6 @@ export default function createSite() {
                     </div>
                     <div className="flex-col">
                         <label className="text-lg font-semibold">Add photos</label>
-                        
                     </div>
                     <div className="flex-col">
                         <label className="text-lg font-semibold">Add Location</label>

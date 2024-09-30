@@ -7,7 +7,7 @@ const UserProvider = ({ children }) => {
     const [Location, setLocation] = useState(null);
     const [Tags, setTags] = useState(null);
     return (
-        <UserContext.Provider value={{ Caption, setCaption, Location, setLocation }}>
+        <UserContext.Provider value={{ Caption, setCaption, Location, setLocation, Tags, setTags }}>
             {children}
         </UserContext.Provider>
     );
