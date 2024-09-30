@@ -9,6 +9,7 @@ import { useChatStore } from "../../../../lib/chatStore";
 const Chatlist = () => {
     const [chats, setChats] = useState([]);
     const [addMode, setAddMode] = useState(false);
+    const [input, setInput] = useState("");
 
     const { currentUser } = useUserStore();
     const { chatId, changeChat } = useChatStore();
@@ -39,7 +40,7 @@ const Chatlist = () => {
         return () => {
             unSub();
         };
-    }, [currentUser]);
+    }, [currentUser.id]);
 
     const handleSelect = async (chat) => {
 
@@ -62,17 +63,19 @@ const Chatlist = () => {
             changeChat(chat.chatId, chat.user);
         } catch (err) {
             console.log(err);
-        }
+        }       
+    };
 
-        
-    }
+    const filterChats = chats.filter( c => 
+        c.user.username.toLowerCase().includes(input.toLowerCase())
+    );
 
     return (
         <div className="chatlist-container">
             <div className="chatlist-search">
                 <div className="chatlist-searchbar">
                     <img src="./search.png" className="chatlist-img" alt="search" />
-                    <input type="text" className="chatlist-input" placeholder="Search" />
+                    <input type="text" className="chatlist-input" placeholder="Search" onChange={(e)=>setInput(e.target.value)}/>
                 </div>
                 <img src={addMode ? "./minus.png" : "./plus.png"}
                     className="chatlist-add" 
@@ -80,16 +83,16 @@ const Chatlist = () => {
                     alt="toggle" />
             </div>
 
-            {chats.map(chat => (
+            {filterChats.map(chat => (
                 <div 
                     className="chatlist-item" 
                     key={chat.chatId} 
                     onClick={() => handleSelect(chat)} 
                     style={{backgroundColor: chat?.isSeen ? "transparent" : "#5183fe"}}
                 >
-                    <img src={chat.user.avatar || "./avatar.png"} alt="Avatar" />
+                    <img src={chat.user.blocked.includes(currentUser.id) ? "./avatar.png" : chat.user.avatar || "./avatar.png"} alt="Avatar" />
                     <div className="chatlist-text">
-                        <span>{chat.user?.username || 'Unknown User'}</span>
+                        <span>{chat.user.blocked.includes(currentUser.id) ? "User" : chat.user.username}</span>
                         <p>{chat.lastMessage}</p>
                     </div>
                 </div>

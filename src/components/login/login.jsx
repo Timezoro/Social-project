@@ -17,7 +17,7 @@ const Login = () => {
     const [userAvatar, setUserAvatar] = useState(""); // Stores the logged-in user's avatar
 
     // Avatar handler for registration
-    const handleRegisterAvatar = e => {
+    const handleRegisterAvatar = (e) => {
         if (e.target.files[0]) {
             setRegisterAvatar({
                 file: e.target.files[0],
@@ -27,7 +27,7 @@ const Login = () => {
     };
 
     // Login handler
-    const handleLogin = async e => {
+    const handleLogin = async (e) => {
         e.preventDefault();
         setLoading(true);
 
@@ -53,7 +53,7 @@ const Login = () => {
     };
 
     // Register handler
-    const handleRegister = async e => {
+    const handleRegister = async (e) => {
         e.preventDefault();
         setLoading(true);
 

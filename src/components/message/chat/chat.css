@@ -79,8 +79,10 @@
 .message {
     display: flex;
     gap: 20px;
-    max-width: 90%;
+    max-width: 85%;
     align-items: flex-start; 
+    border-radius: 5px;
+    word-wrap: break-word; 
 }
 
 .message-own {
@@ -94,14 +96,15 @@
     background-color: #5183fe; 
     color: white; 
     padding: 10px; 
-    border-radius: 15px; 
+    border-radius: 5px; 
 }
 
-.chatcenter-texts { 
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+.chatcenter-texts p {
+    padding: 10px; 
+    background-color: rgba(41, 61, 97, 0.3); 
+    border-radius: 15px;
+    max-width: 100%; 
+    word-wrap: break-word; 
 }
 
 .chatcenter-texts img {
@@ -154,6 +157,10 @@
     font-size: 16px;
 }
 
+.chatbottom input:disabled{
+    cursor: not-allowed;
+}
+
 .emoji-container{
     position: relative;
 }
@@ -172,4 +179,9 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+}
+
+.sendbttn:disabled{
+    background-color: #5182fe94;
+    cursor: not-allowed;
 }
