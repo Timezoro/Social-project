@@ -2,13 +2,16 @@ import { useState, useEffect } from "react";
 import "./chatlist.css";
 import AddUser from "./addUser/AddUser";
 import { useUserStore } from "../../../../lib/userStore";
-import { doc, getDoc, onSnapshot } from "firebase/firestore";
+import { doc, getDoc, onSnapshot, updateDoc } from "firebase/firestore";
 import { db } from "../../../../lib/firebase";
+import { useChatStore } from "../../../../lib/chatStore";
 
 const Chatlist = () => {
     const [chats, setChats] = useState([]);
     const [addMode, setAddMode] = useState(false);
+
     const { currentUser } = useUserStore();
+    const { chatId, changeChat } = useChatStore();
 
     useEffect(() => {
         // Check if currentUser is defined
@@ -38,6 +41,32 @@ const Chatlist = () => {
         };
     }, [currentUser]);
 
+    const handleSelect = async (chat) => {
+
+        const userChats = chats.map(item => {
+            const {user, ...rest} = item; 
+            return rest;
+        });
+
+        const chatIndex = userChats.findIndex(item => item.chatId === chat.chatId);
+        userChats[chatIndex].isSeen = true;
+
+        const userChatsRef = doc(db, "userchats", currentUser.id);
+
+        try {
+
+            await updateDoc(userChatsRef, {
+                chats: userChats
+
+            });
+            changeChat(chat.chatId, chat.user);
+        } catch (err) {
+            console.log(err);
+        }
+
+        
+    }
+
     return (
         <div className="chatlist-container">
             <div className="chatlist-search">
@@ -52,7 +81,12 @@ const Chatlist = () => {
             </div>
 
             {chats.map(chat => (
-                <div className="chatlist-item" key={chat.chatId}>
+                <div 
+                    className="chatlist-item" 
+                    key={chat.chatId} 
+                    onClick={() => handleSelect(chat)} 
+                    style={{backgroundColor: chat?.isSeen ? "transparent" : "#5183fe"}}
+                >
                     <img src={chat.user.avatar || "./avatar.png"} alt="Avatar" />
                     <div className="chatlist-text">
                         <span>{chat.user?.username || 'Unknown User'}</span>
