@@ -5,15 +5,15 @@ import Chat from "./components/message/chat/Chat";
 import List from "./components/message/list/List";
 import Login from "./components/login/login";
 import Notification from "./components/notification/Notification";
-import CreateSite from "./components/mainsite/createPost/createSite";
-import { UserProvider } from "./context/UserContext";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./lib/firebase";
 import { useUserStore } from "./lib/userStore";
+import { useChatStore } from "./lib/chatStore";
 
 const App = () => {
   
   const { currentUser, isLoading, fetchUserInfo } = useUserStore();
+  const { chatId } = useChatStore();
 
   useEffect(() => {
     const unSub = onAuthStateChanged(auth, (user) => {
@@ -28,22 +28,24 @@ const App = () => {
   if (isLoading) return <div className="loading">Loading...</div>
 
   return (
-    <UserProvider>
-        <CreateSite />
-      {/* <div className="container">
-        {currentUser ? (
-          <>
-            <List />
-            <Chat />
-            <Detail />
-          </>
-        ) : (
-          <Login />
-        )}
-        <Notification />
-      </div> */}
-    </UserProvider>
-      
+    <div className=' container '> 
+
+      {
+        currentUser ? (
+        <>
+
+          <List />
+          {chatId && <Chat />}
+          {chatId && <Detail /> }
+
+        </>          
+      ) : (
+        <Login />
+      )}
+
+      <Notification />
+
+    </div>
   );
 }
 
