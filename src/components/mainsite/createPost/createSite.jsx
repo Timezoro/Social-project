@@ -1,72 +1,110 @@
-import {useState, useContext} from "react";
-import {setDoc, doc, serverTimestamp} from "firebase/firestore";
+import { useState, useContext, useEffect } from "react";
+import { db } from "../../../lib/firebase";
+import { setDoc, collection, addDoc, serverTimestamp, onSnapshot } from "firebase/firestore";
 import { UserContext } from "../../../context/UserContext";
- 
+import { useNavigate } from "react-router-dom";
+
 export default function createSite() {
-    const {setCaption,setLocation,setTags } = useContext(UserContext);
+    const { setCaption, setLocation, setTags } = useContext(UserContext);
 
     const [userCaption, setuserCaption] = useState("");
+    const [userImage, setuserImage] = useState("");
     const [userLocation, setuserLocation] = useState("");
     const [userTags, setuserTags] = useState("");
+    const [imagePreview, setImagePreview] = useState(""); // State for image preview
 
-    function handleChange() {
+    const navigate = useNavigate();
+
+    async function handleChange(e) {
         e.preventDefault();
-        setCaption(userCaption);
-        setLocation(userLocation);
-        setTags(userTags);
+        try{
+            await addDoc(collection(db, "posts"), {
+                caption: userCaption,
+                image: userImage,
+                location: userLocation,
+                tags: userTags,
+                timestamp: serverTimestamp()
+            });
+            setuserCaption('');
+            setuserImage("");
+            setuserLocation('');
+            setuserTags('');
+            setImagePreview("");
+            navigate('/');
+
+        }catch(e){
+            console.error(e);
+        }
 
     }
-    function handleCancle(e) {
+
+    function handleCancel(e) {
         e.preventDefault();
+        setuserCaption('');
+        setuserImage("");
+        setuserLocation('');
+        setuserTags('');
+        setImagePreview("");
+        navigate('/');
+    }
+
+    function handleImageChange(e) {
+        const file = e.target.files[0];
+        if (file) {
+            setuserImage(file);
+            const reader = new FileReader();
+            reader.onload = () => {
+                setImagePreview(reader.result);
+            };
+            reader.readAsDataURL(file);
+        }
     }
 
     return (
-    <div className ="h-screen w-screen overflow-auto">
-        <div className="p-24">
-            <div className="flex-row ">
-                <h1 className="text-2xl font-bold pb-10">Create a Post</h1>
-            </div>
-            <div className="flex-col p-5">
-                <form>
-                    <div className=" pb-5">
-                        <label className="text-sm font-semibold">Caption</label>
-                        <textarea onChange={e => setuserCaption(e.target.value)} type="text" className="border-2 border-gray-300 text-slate-900 p-2 rounded-lg w-full" placeholder="Caption"/>
-                    </div>
-                    <div className=" pb-5">
-                        <label for="uploadFile1" className="bg-white text-gray-500 font-semibold text-base rounded max-w-md h-52 flex flex-col items-center justify-center cursor-pointer border-2 border-gray-300 border-dashed mx-auto font-[sans-serif]">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="w-11 mb-2 fill-gray-500" viewBox="0 0 32 32">
-                            <path
-                            d="M23.75 11.044a7.99 7.99 0 0 0-15.5-.009A8 8 0 0 0 9 27h3a1 1 0 0 0 0-2H9a6 6 0 0 1-.035-12 1.038 1.038 0 0 0 1.1-.854 5.991 5.991 0 0 1 11.862 0A1.08 1.08 0 0 0 23 13a6 6 0 0 1 0 12h-3a1 1 0 0 0 0 2h3a8 8 0 0 0 .75-15.956z"
-                            data-original="#000000" />
-                            <path
-                            d="M20.293 19.707a1 1 0 0 0 1.414-1.414l-5-5a1 1 0 0 0-1.414 0l-5 5a1 1 0 0 0 1.414 1.414L15 16.414V29a1 1 0 0 0 2 0V16.414z"
-                            data-original="#000000" />
-                        </svg>
-                        Upload file
-
-                        <input type="file" id='uploadFile1' className="hidden" />
-                        <p className="text-xs font-medium text-gray-400 mt-2">PNG, JPG SVG, WEBP, and GIF are Allowed.</p>
-                        </label>
-                    </div>
-                    <div className="pb-5">
-                        <label className="text-sm font-semibold">Add Location</label>
-                        <input onChange ={e => setuserLocation(e.target.value)} type="text" className=" text-slate-900 border-2 border-gray-300 p-2 rounded-lg w-full" placeholder="Location"/>
-                    </div>
-                    <div className="pb-5">
-                        <label className="text-sm font-semibold">Add tags</label>
-                        <input onChange = {e => setuserTags(e.target.value)} type="text" className=" text-slate-900 border-2 border-gray-300 p-2 rounded-lg w-full" placeholder="Tags"/>
-                    </div>
-                    <div className="pb-5">
-                        <label className="text-sm font-semibold">Tags</label>
-                        <input type="text" className=" text-slate-900 border-2 border-gray-300 p-2 rounded-lg w-full" placeholder="Tags"/>
-                    </div>
-                    <div className="flex justify-end pt-5">
-                        <button onclick = {e => handleCancle()} className="bg-gray-300 text-black p-2 rounded-lg mr-3">Cancle</button>
-                        <button onclick= {e => handleChange()} className="bg-blue-500 text-white p-2 rounded-lg">Create Post</button>
-                    </div>
-                </form>
+        <div className="h-50 w-screen overflow-auto">
+            <div className="p-24">
+                <div className="flex-row ">
+                    <h1 className="text-2xl font-bold pb-10">Create a Post</h1>
+                </div>
+                <div className="flex-col p-5">
+                    <form>
+                        <div className="pb-5">
+                            <label className="text-sm font-semibold">Caption</label>
+                            <textarea value={userCaption} onChange={e => setuserCaption(e.target.value)} type="text" className="border-2 border-gray-300 text-slate-900 p-2 rounded-lg w-full" placeholder="Caption" />
+                        </div>
+                        <div className="pb-5">
+                            <div className="flex items-center justify-center w-full ">
+                                <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                                    {imagePreview ? (
+                                        <img src={imagePreview} alt="Preview" className="object-cover h-full w-full rounded-lg" />
+                                    ) : (
+                                        <div className="flex flex-col items-center justify-center pt-5 pb-6 ">
+                                            <svg className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
+                                            </svg>
+                                            <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload</span> </p>
+                                            <p className="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                                        </div>
+                                    )}
+                                    <input id="dropzone-file" type="file" className="hidden" onChange={handleImageChange} />
+                                </label>
+                            </div>
+                        </div>
+                        <div className="pb-5">
+                            <label className="text-sm font-semibold">Add Location</label>
+                            <input value={userLocation} onChange={e => setuserLocation(e.target.value)} type="text" className="text-slate-900 border-2 border-gray-300 p-2 rounded-lg w-full" placeholder="Location" />
+                        </div>
+                        <div className="pb-5">
+                            <label className="text-sm font-semibold">Add tags</label>
+                            <input value={userTags} onChange={e => setuserTags(e.target.value)} type="text" className="text-slate-900 border-2 border-gray-300 p-2 rounded-lg w-full" placeholder="Tags" />
+                        </div>
+                        <div className="flex justify-end pt-5">
+                            <button onClick={e => handleCancel(e)} className="bg-gray-300 text-black p-2 rounded-lg mr-3">Cancel</button>
+                            <button onClick={e => handleChange(e)} className="bg-blue-500 text-white p-2 rounded-lg">Create Post</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
     );
 }
