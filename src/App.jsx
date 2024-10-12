@@ -8,7 +8,7 @@ import Notification from "./components/notification/Notification";
 import { BrowserRouter as Router, Route, Routes, useNavigate, BrowserRouter } from "react-router-dom";
 import { UserProvider } from "./context/UserContext";
 import Mainfeed from "./components/mainsite/mainfeed/Mainfeed";
-import CreateSite from "./components/mainsite/createPost/createSite";
+import CreateSite from "./components/mainsite/mainfeed/layout/createSite";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./lib/firebase";
 import { useUserStore } from "./lib/userStore";

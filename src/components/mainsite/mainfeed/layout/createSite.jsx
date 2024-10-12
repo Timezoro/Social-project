@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from "react";
-import { db } from "../../../lib/firebase";
+import { db } from "../../../../lib/firebase";
 import { setDoc, collection, addDoc, serverTimestamp, onSnapshot } from "firebase/firestore";
-import { UserContext } from "../../../context/UserContext";
+import { UserContext } from "../../../../context/UserContext";
 import { useNavigate } from "react-router-dom";
 
 export default function createSite() {
