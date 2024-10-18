@@ -6,6 +6,12 @@ import { db } from "../../../lib/firebase";
 import { useChatStore } from "../../../lib/chatStore";
 import { useUserStore } from "../../../lib/userStore";
 import upload from "../../../lib/upload";
+// import { Navigate } from "react-router-dom";
+
+
+// const navigate = useNavigate();
+
+
 
 const Chat = () => {
   const [chat, setChat] = useState(); // Initialize chat state

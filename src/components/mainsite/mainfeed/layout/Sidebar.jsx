@@ -1,6 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+//add logout
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { auth } from "../../../../lib/firebase";
 
 export default function Sidebar() {
+
+
+
 
     return (
         <div className="flex flex-col h-full">
@@ -17,9 +23,11 @@ export default function Sidebar() {
                         <div className="mb-6 hover:bg-slate-500 rounded-md p-4 cursor-pointer">
                             <button className="text-lg font-semibold  ">People</button>
                         </div>
-                        <div className="mb-6 hover:bg-slate-500 rounded-md p-4 cursor-pointer">
-                            <button className="text-lg font-semibold  ">Chat</button>
-                        </div>
+                        <Link to={'/chat'}>
+                            <div className="mb-6 hover:bg-slate-500 rounded-md p-4 cursor-pointer">
+                                <button className="text-lg font-semibold  ">Chat</button>
+                            </div>
+                        </Link>
                         <div className="mb-6 hover:bg-slate-500 rounded-md p-4 cursor-pointer">
                             <button className="text-lg font-semibold  ">Saved</button>
                         </div>
