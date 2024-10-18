@@ -74,9 +74,8 @@ export default function Mainfeed() {
                             </div>
 
                         </div>
-                        <div className="mt-7 mb-5  ">
-                            <img src="./this___former-president.jpg  " className =" object-cover object-center w-full h-96" />
-
+                        <div className="mt-7 mb-5 ">
+                            <img src="./this___former-president.jpg  " className=" object-contain object-center w-full h-96" />
                         </div>
 
                         <div className="mb-5 w-full h-20 overflow-auto break-all">
@@ -84,21 +83,36 @@ export default function Mainfeed() {
                             <span className="ml-2 text-base">Description</span>
                             <span className=" ml-1 text-base ">#Tag</span>
                         </div>
+
                         <div>
-                            <div className="flex flex-row ">
-                                <div className="flex flex-row">
+                            <div className="flex flex-row justify-between items-center">
+                                <div className="flex items-center">
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         fill="#FF0000"
                                         version="1.1"
                                         viewBox="0 0 471.701 471.701"
                                         xmlSpace="preserve"
-                                        className="fill-white hover:fill-red-700 cursor-pointer w-8 h-8"
+                                        className="fill-white hover:fill-[#d85050] cursor-pointer w-8 h-8"
                                     >
                                         <path d="M433.601 67.001c-24.7-24.7-57.4-38.2-92.3-38.2s-67.7 13.6-92.4 38.3l-12.9 12.9-13.1-13.1c-24.7-24.7-57.6-38.4-92.5-38.4-34.8 0-67.6 13.6-92.2 38.2-24.7 24.7-38.3 57.5-38.2 92.4 0 34.9 13.7 67.6 38.4 92.3l187.8 187.8c2.6 2.6 6.1 4 9.5 4 3.4 0 6.9-1.3 9.5-3.9l188.2-187.5c24.7-24.7 38.3-57.5 38.3-92.4.1-34.9-13.4-67.7-38.1-92.4zm-19.2 165.7l-178.7 178-178.3-178.3c-19.6-19.6-30.4-45.6-30.4-73.3s10.7-53.7 30.3-73.2c19.5-19.5 45.5-30.3 73.1-30.3 27.7 0 53.8 10.8 73.4 30.4l22.6 22.6c5.3 5.3 13.8 5.3 19.1 0l22.4-22.4c19.6-19.6 45.7-30.4 73.3-30.4 27.6 0 53.6 10.8 73.2 30.3 19.6 19.6 30.3 45.6 30.3 73.3.1 27.7-10.7 53.7-30.3 73.3z"></path>
                                     </svg>
+                                    <span className="text-lg font-bold ml-5">0 Likes</span>
+                                </div>
+                                <div>
+                                    
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="800"
+                                        height="800"
+                                        viewBox="0 0 24 24"
+                                        className="fill-white hover:fill-[#704bac] cursor-pointer w-9 h-9"
+                                    >
+                                        <path d="M5 11a1 1 0 001-1V6a1 1 0 00-2 0v4a1 1 0 001 1zm-.71-7.29a1 1 0 001.09.21 1.15 1.15 0 00.33-.21 1.15 1.15 0 00.21-.33A.84.84 0 006 3a1 1 0 00-.29-.71 1 1 0 00-1.09-.21 1 1 0 00-.33.21A1 1 0 004 3a1 1 0 00.08.38 1.15 1.15 0 00.21.33zM17 6H9a1 1 0 000 2h8a1 1 0 011 1v9.72l-1.57-1.45a1 1 0 00-.68-.27H7a1 1 0 01-1-1v-2a1 1 0 00-2 0v2a3 3 0 003 3h8.36l3 2.73A1 1 0 0019 22a1.1 1.1 0 00.4-.08A1 1 0 0020 21V9a3 3 0 00-3-3z"></path>
+                                    </svg>
                                 </div>
                             </div>
+
                         </div>
 
                     </div>
