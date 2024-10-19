@@ -6,9 +6,8 @@ import { auth } from "../../../lib/firebase";
 
 
 export default function Mainfeed() {
-
-    //use data from context
-
+    
+    
     //handle logout
     const handleLogout = async () => {
         try {

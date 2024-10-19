@@ -3,6 +3,7 @@ import { db } from "../../../lib/firebase";
 import { setDoc, collection, addDoc, serverTimestamp, onSnapshot } from "firebase/firestore";
 import { UserContext } from "../../../context/UserContext";
 import { useNavigate } from "react-router-dom";
+import { useUpload } from "../../../hooks/useupload";
 import Sidebar from "./layout/sidebar";
 
 export default function createSite() {
@@ -15,6 +16,8 @@ export default function createSite() {
     const [imagePreview, setImagePreview] = useState(""); // State for image preview
 
     const navigate = useNavigate();
+
+    const { upload } = useUpload();
 
     async function handleChange(e) {
         e.preventDefault();
@@ -49,15 +52,19 @@ export default function createSite() {
         navigate('/');
     }
 
-    function handleImageChange(e) {
+    async function handleImageChange(e) {
         const file = e.target.files[0];
         if (file) {
-            setuserImage(file);
-            const reader = new FileReader();
-            reader.onload = () => {
-                setImagePreview(reader.result);
-            };
-            reader.readAsDataURL(file);
+            // setuserImage(file);
+            // const reader = new FileReader();
+            // reader.onload = () => {
+            //     setImagePreview(reader.result);
+            // };
+            // reader.readAsDataURL(file);
+            const img_url = await upload(file);
+            setuserImage(img_url.data.path);
+            setImagePreview(img_url.data.path);
+            console.log(img_url.data.path);      
         }
     }
 
@@ -75,7 +82,7 @@ export default function createSite() {
                                 <textarea value={userCaption} onChange={e => setuserCaption(e.target.value)} type="text" className="border-2 border-gray-300 text-slate-900 p-2 rounded-lg w-full" placeholder="Caption" />
                             </div>
                             <div className="pb-5">
-                                <div className="flex items-center justify-center w-full ">
+                                <div className="flex items-center justify-center w-full  object-contain object-center ">
                                     <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                                         {imagePreview ? (
                                             <img src={imagePreview} alt="Preview" className="object-cover h-full w-full rounded-lg" />
