@@ -13,16 +13,21 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./lib/firebase";
 import { useUserStore } from "./lib/userStore";
 import { useChatStore } from "./lib/chatStore";
+import { useContext } from 'react';
+import { UserContext } from './context/UserContext';
 // import Layout from "./components/mainsite/mainfeed/layout/Layout";
 
 const App = () => {
 
   const { currentUser, isLoading, fetchUserInfo  } = useUserStore();
   const { chatId } = useChatStore();
+  const { setUserid } = useContext(UserContext);
 
   useEffect(() => {
     const unSub = onAuthStateChanged(auth, (user) => {
       fetchUserInfo(user?.uid);
+      localStorage.setItem("uid", user?.uid);
+      if(user) setUserid(user.uid);
     });
 
     return () => {

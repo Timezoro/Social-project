@@ -7,26 +7,43 @@ import { useUpload } from "../../../hooks/useupload";
 import Sidebar from "./layout/sidebar";
 
 export default function createSite() {
-    const { setCaption, setLocation, setTags } = useContext(UserContext);
+    // {
+    //     "blocked": [],
+    //     "id": "poPX6fV60yeIGTrhCGCQO0myInH3",
+    //     "email": "cillian@gmail.com",
+    //     "avatar": "https://firebasestorage.googleapis.com/v0/b/sogram-11499.appspot.com/o/images%2F1727535436395_test.jpg?alt=media&token=5d1703cb-2d44-4002-bde4-9adb60038c55",
+    //     "username": "Cillian"
+    // }
+    // const { setCaption, setLocation, setTags } = useContext(UserContext);
 
     const [userCaption, setuserCaption] = useState("");
     const [userImage, setuserImage] = useState("");
     const [userLocation, setuserLocation] = useState("");
     const [userTags, setuserTags] = useState("");
     const [imagePreview, setImagePreview] = useState(""); // State for image preview
-
+    const [Userid, setUserid] = useState("");
+    
     const navigate = useNavigate();
 
     const { upload } = useUpload();
 
+    useEffect(() => {
+        if(localStorage.getItem('uid') !== null){
+            setUserid(localStorage.getItem('uid'));
+        }
+    }, []);
+
     async function handleChange(e) {
         e.preventDefault();
         try{
+
             await addDoc(collection(db, "posts"), {
+                user_id: Userid,
                 caption: userCaption,
                 image: userImage,
                 location: userLocation,
                 tags: userTags,
+
                 timestamp: serverTimestamp()
             });
             setuserCaption('');
@@ -55,12 +72,6 @@ export default function createSite() {
     async function handleImageChange(e) {
         const file = e.target.files[0];
         if (file) {
-            // setuserImage(file);
-            // const reader = new FileReader();
-            // reader.onload = () => {
-            //     setImagePreview(reader.result);
-            // };
-            // reader.readAsDataURL(file);
             const img_url = await upload(file);
             setuserImage(img_url.data.path);
             setImagePreview(img_url.data.path);
