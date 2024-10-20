@@ -73,7 +73,22 @@ export default function Mainfeed() {
             console.log("Error liking post:", error);
         }
     };
-    
+    const handleDelete = async (postId) => {
+    //Can delete only if the user is the owner of the post
+    const userId = auth.currentUser?.uid;
+    const postRef = doc(db, "posts", postId);
+    const postSnap = await getDoc(postRef);
+    if (postSnap.exists()) {
+        const postData = postSnap.data();
+        if (postData.user_id === userId) {
+            await deleteDoc(postRef);
+        }else{
+            alert("You not owner of this post");
+        }
+    }
+
+    }
+
     
 
     //handle logout
@@ -87,7 +102,7 @@ export default function Mainfeed() {
     }
 
     //delete post
-    const handleDelete = async (id) => {
+    const handledelete = async (id) => {
         try {
             await deleteDoc(doc(db, "posts", id));
         } catch (error) {
@@ -258,8 +273,11 @@ export default function Mainfeed() {
                                                 <path d="M245.2 490.4c65.5 0 127.1-25.5 173.4-71.8s71.8-107.9 71.8-173.4-25.5-127.1-71.8-173.4S310.7 0 245.2 0 118.1 25.5 71.8 71.8 0 179.7 0 245.2s25.5 127.1 71.8 173.4 107.9 71.8 173.4 71.8zm156.1-89.1c-41.7 41.7-97.1 64.6-156.1 64.6-54.8 0-106.6-19.9-147.1-56.2L409.7 98.1c36.3 40.5 56.2 92.3 56.2 147.1 0 59-23 114.4-64.6 156.1zM89.1 89.1c41.7-41.6 97.1-64.6 156.1-64.6 54.9 0 106.6 19.9 147.1 56.2L80.7 392.3c-36.3-40.5-56.2-92.2-56.2-147.1 0-59 23-114.4 64.6-156.1z"></path>
                                             </svg>
                                         </div>
+                                        {/* onClick={() => window.open(post.image)} */}
                                         <div className="mt-7 mb-5 ">
-                                            {post.image && <img src={post.image} className=" object-contain object-center w-full h-96" />}
+                                        
+                                            {post.image && <img src={post.image} className=" object-contain object-center w-screen h-96 "  />}
+                                
                                         </div>
 
                                         <div className="mb-5 w-full h-20 overflow-auto break-all">
@@ -284,7 +302,7 @@ export default function Mainfeed() {
                                                         <path d="M433.601 67.001c-24.7-24.7-57.4-38.2-92.3-38.2s-67.7 13.6-92.4 38.3l-12.9 12.9-13.1-13.1c-24.7-24.7-57.6-38.4-92.5-38.4-34.8 0-67.6 13.6-92.2 38.2-24.7 24.7-38.3 57.5-38.2 92.4 0 34.9 13.7 67.6 38.4 92.3l187.8 187.8c2.6 2.6 6.1 4 9.5 4 3.4 0 6.9-1.3 9.5-3.9l188.2-187.5c24.7-24.7 38.3-57.5 38.3-92.4.1-34.9-13.4-67.7-38.1-92.4zm-19.2 165.7l-178.7 178-178.3-178.3c-19.6-19.6-30.4-45.6-30.4-73.3s10.7-53.7 30.3-73.2c19.5-19.5 45.5-30.3 73.1-30.3 27.7 0 53.8 10.8 73.4 30.4l22.6 22.6c5.3 5.3 13.8 5.3 19.1 0l22.4-22.4c19.6-19.6 45.7-30.4 73.3-30.4 27.6 0 53.6 10.8 73.2 30.3 19.6 19.6 30.3 45.6 30.3 73.3.1 27.7-10.7 53.7-30.3 73.3z"></path>
                                                     </svg>
                                                     <span className="text-lg font-bold ml-4  ">{post.likes}</span>
-                                                    <span className="text-lg font-bold ml-4  ">Likes</span>
+                                                    
 
                                                 </div>
                                                 <div>
