@@ -15,7 +15,6 @@ import { useUserStore } from "./lib/userStore";
 import { useChatStore } from "./lib/chatStore";
 import { useContext } from 'react';
 import { UserContext } from './context/UserContext';
-// import Layout from "./components/mainsite/mainfeed/layout/Layout";
 
 const App = () => {
 

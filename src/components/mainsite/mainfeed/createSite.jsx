@@ -4,7 +4,6 @@ import { setDoc, collection, addDoc, serverTimestamp, onSnapshot } from "firebas
 import { UserContext } from "../../../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import { useUpload } from "../../../hooks/useupload";
-import Sidebar from "./layout/sidebar";
 
 export default function createSite() {
     // {
