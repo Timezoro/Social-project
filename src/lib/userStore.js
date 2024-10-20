@@ -2,7 +2,9 @@ import { doc, getDoc } from 'firebase/firestore';
 import { create } from 'zustand';
 import { db } from './firebase';
 
+
 export const useUserStore = create((set) => ({
+
   currentUser: null,
   isLoading: true,
   fetchUserInfo: async (uid) => {
@@ -22,5 +24,5 @@ export const useUserStore = create((set) => ({
         console.log(err)
         return set({currentUser:null, isLoading:false});
     }
-  } 
+  },
 }));
