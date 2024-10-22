@@ -281,9 +281,9 @@ export default function Mainfeed() {
                                         </div>
 
                                         <div className="mb-5 w-full h-20 overflow-auto break-all">
-                                            <span className="text-lg font-bold">{post.user.username}</span>
-                                            <span className="ml-2 text-base">{post.caption}</span>
-                                            <span className=" ml-1 text-base ">#{post.tags}</span>
+                                            <span className="text-lg font-extrabold">{post.user.username}</span>
+                                            <span className="ml-2 text-base font-thin">{post.caption}</span>
+                                            <span className=" ml-1 text-base text-[#2fbdff] ">#{post.tags}</span>
                                         </div>
 
                                         <div>
@@ -303,9 +303,10 @@ export default function Mainfeed() {
                                                     </svg>
                                                     <span className="text-lg font-bold ml-4  ">{post.likes}</span>
                                                     
-
                                                 </div>
-                                                <div>
+
+                                                <div className="flex flex-row">
+                                                    <span className="text-lg font-bold mr-4">{post.comments}</span>
                                                     <svg
                                                         xmlns="http://www.w3.org/2000/svg"
                                                         width="800"
@@ -315,6 +316,7 @@ export default function Mainfeed() {
                                                     >
                                                         <path d="M5 11a1 1 0 001-1V6a1 1 0 00-2 0v4a1 1 0 001 1zm-.71-7.29a1 1 0 001.09.21 1.15 1.15 0 00.33-.21 1.15 1.15 0 00.21-.33A.84.84 0 006 3a1 1 0 00-.29-.71 1 1 0 00-1.09-.21 1 1 0 00-.33.21A1 1 0 004 3a1 1 0 00.08.38 1.15 1.15 0 00.21.33zM17 6H9a1 1 0 000 2h8a1 1 0 011 1v9.72l-1.57-1.45a1 1 0 00-.68-.27H7a1 1 0 01-1-1v-2a1 1 0 00-2 0v2a3 3 0 003 3h8.36l3 2.73A1 1 0 0019 22a1.1 1.1 0 00.4-.08A1 1 0 0020 21V9a3 3 0 00-3-3z"></path>
                                                     </svg>
+                                                    
                                                 </div>
                                             </div>
 
